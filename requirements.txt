@@ -1,4 +1,5 @@
-python-telegram-bot==20.8
+python-telegram-bot[job-queue]==20.7
+httpx>=0.24.0
 openpyxl
 reportlab
 python-docx
