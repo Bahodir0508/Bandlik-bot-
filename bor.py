@@ -1,4 +1,3 @@
-
 # ================== 1. IMPORTLAR ==================
 import os
 import math
@@ -46,18 +45,27 @@ from telegram.ext import (
 )
 
 # ================== 2. SOZLAMALAR ==================
+
 TOKEN = "8802766629:AAHdLYyvunZlN4U2xzv4YL55eM6nKrMdakk"
+
 BOSS_ID = 8411652081
 
 WORK_START = "08:00"
+
 WORK_END = "18:00"
+
 LUNCH_START = "12:00"
+
 LUNCH_END = "13:00"
+
 WORK_HOURS_PER_DAY = 9  # 08:00–18:00 minus 1 soat tushlik = 9 soat
 
 UZBEKISTAN_HOLIDAYS = {
+
     "01-01", "01-14", "03-08", "03-21", "03-22", "03-23",
+
     "05-09", "09-01", "10-01", "12-08",
+
 }
 
 def is_work_day(d: date) -> bool:
@@ -601,29 +609,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def role_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text or ""
-    user_id = update.effective_user.id
-    
     if "Boshliq" in text:
-        # ID ni tekshirish va logga chiqarish
-        print(f"DEBUG: 'Boshliq' tugmasi bosildi. Foydalanuvchi ID: {user_id}")
-        
-        if user_id != BOSS_ID:
-            # ID mos kelmasa, sizga ID raqamini yuboradi
-            await update.message.reply_text(
-                f"⛔ Siz boshliq emassiz.\n\n"
-                f"Sizning Telegram ID raqamingiz: <code>{user_id}</code>\n"
-                f"Koddagi BOSS_ID: <code>{BOSS_ID}</code>\n\n"
-                f"Iltimos, ushbu ID raqamni kodingizdagi BOSS_ID o'zgaruvchisiga yozing.",
-                parse_mode="HTML"
-            )
+        if update.effective_user.id != BOSS_ID:
+            await update.message.reply_text("⛔ Siz boshliq emassiz")
             return ConversationHandler.END
-            
         context.user_data["role"] = "boshliq"
         await boshliq_menu(update, context)
     else:
         context.user_data["role"] = "ishchi"
         await ishchi_main_menu(update, context)
-        
     return ConversationHandler.END
 
 # ================== 7. MENULAR ==================
@@ -1445,7 +1439,7 @@ async def send_oylik_maosh_excel(update, context):
         caption=(
             f"💰 Umumiy oylik maosh — {month_str}\n"
             f"📅 Ish kunlari: {ish_kunlari}\n"
-            f"⏰ Ish soati: 08:00–18:00 (9 soat/kun)\n"
+            f"⏰ Ish soati: 08:00–16:00 (9 soat/kun)\n"
             f"📋 Ustunlar: F.I.Sh | Nominal | Kelgan | Kelmagan | Yo'qchilik | Jarima | Avans | Sof maosh"
         )
     )
@@ -1647,4 +1641,5 @@ def main():
     app.run_polling(drop_pending_updates=True)
 
 if __name__ == "__main__":
-    main()
+    main() 
+ 
