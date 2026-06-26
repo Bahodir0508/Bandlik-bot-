@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boshliq panel</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #eef2f7;
+            margin: 0;
+            padding: 20px;
+        }
+        .box {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .filter {
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+        input[type="month"], button {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+        }
+        th {
+            background: #222;
+            color: #fff;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        tr:hover {
+            background: #e0f7fa;
+        }
+        td b {
+            color: #4CAF50;
+        }
+        @media (max-width: 600px) {
+            input[type="month"], button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>📊 Oylik maosh paneli</h2>
+
+    <form method="post" class="filter">
+        <input type="month" name="month" value="{{month}}">
+        <button type="submit">Ko‘rsat</button>
+    </form>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Ishchi</th>
+                    <th>Kelgan kun</th>
+                    <th>Kunlik</th>
+                    <th>Oylik</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for n, d, s, t in data %}
+                <tr>
+                    <td>{{n}}</td>
+                    <td>{{d}}</td>
+                    <td>{{s}} so‘m</td>
+                    <td><b>{{t}} so‘m</b></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
